@@ -16,7 +16,7 @@
 
 #define GAME_ROWS 15
 #define GAME_COLUMNS 20
-#define GAME_FPS 4.0
+#define GAME_FPS 3.0
 
 void errorCallback(int error, const char* description);
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
@@ -57,23 +57,25 @@ int main() {
 
     while (!glfwWindowShouldClose(window)) {
         double now = glfwGetTime();
-        if ((now - lastFrameTime) >= fpsLimit) {
-            int width, height;
-            glfwGetFramebufferSize(window, &width, &height);
-            glViewport(0, 0, width, height);
+        int width, height;
+        glfwGetFramebufferSize(window, &width, &height);
+        glViewport(0, 0, width, height);
 
-            updateGameLoop();
-            draw(width, height, getGameState());
+        updateGameLoop();
+        draw(width, height, getGameState());
 
-            glfwSwapBuffers(window);
-            glfwPollEvents();
-            lastFrameTime = now;
-        }
+        glfwSwapBuffers(window);
+        glfwPollEvents();
+        
+        double sleeptime = fpsLimit - (now - lastFrameTime);
+        lastFrameTime = now;
+        sleepSeconds(sleeptime);
     }
 
     destroyGame();
     glfwDestroyWindow(window);
     glfwTerminate();
+    printf("Goodbye!\n");
     return 0;
 }
 

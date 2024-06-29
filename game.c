@@ -8,6 +8,8 @@
 #define MIN_COLUMNS 6
 #define START_SIZE 3
 
+#define CLOSE_GAME_ON_GAME_OVER 1
+
 enum Direction {
     UP = 0,
     DOWN = 1,
@@ -109,7 +111,9 @@ void updatePlayer() {
         isPlayerSpace(targetDirection.x, targetDirection.y) == 1
     ) {
         printf("LOSER!\n");
-        glfwSetWindowShouldClose(gameWindow, GLFW_TRUE);
+        if (CLOSE_GAME_ON_GAME_OVER == 1) {
+            glfwSetWindowShouldClose(gameWindow, GLFW_TRUE);
+        }
         return;
     }
 

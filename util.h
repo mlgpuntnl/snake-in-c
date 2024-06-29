@@ -8,6 +8,8 @@ struct Coordinate {
 
 struct Coordinate createCoordinate(int x, int y);
 
+void sleepSeconds(double seconds);
+
 int randomNumber(int lowest, int highest);
 
 #endif
